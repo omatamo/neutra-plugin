@@ -29,9 +29,7 @@ end
 
 -- When module unload
 function Hello:OnUnload()
-    if self.Tab then
-        self.Tab:Destroy()
-    end
+  self.NotifyInfo("Hello Plugin", "Good Bye", 2)
 end
   
 return Hello
