@@ -16,7 +16,7 @@ function Hello:SayHello()
   })
 
   local HelloSection = HelloTab:AddSection("Hello World")
-  print(unpack(HelloSection))
+  
   HelloSection:AddButton({
     Title = "Wave Me",
     Callback = function()
