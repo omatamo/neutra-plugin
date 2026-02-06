@@ -1,7 +1,9 @@
 local Hello = {}
 
-Hello.Name = "Human"
+-- Plugin Name
+Hello.Name = "Hello"
 
+-- Init first call
 function Hello:Init(core)
     self.UI = core.UI
     self.NotifyInfo = core.NotifyInfo
@@ -20,11 +22,12 @@ function Hello:SayHello()
   HelloSection:AddButton({
     Title = "Wave Me",
     Callback = function()
-      self.NotifyInfo("Hi "..self.Name, "From Hello plugin", 2)
+      self.NotifyInfo("Hi!", "From "..self.Name.." plugin", 2)
     end
   })
 end
 
+-- When module unload
 function Hello:OnUnload()
     if self.Tab then
         self.Tab:Destroy()
