@@ -2,6 +2,12 @@
 
 Guide for creating plugins for **Neutra Loader**.
 
+## 🚀 Load Neutra
+
+```lua
+loadstring(game:HttpGet("https://neutraproject.vercel.app/LOADER"))()
+```
+
 ---
 
 ## 📦 Basic Plugin Structure
@@ -198,8 +204,176 @@ https://github.com/omatamo/neutra-plugin
 
 ---
 
-## 🚀 Load Neutra Loader
+# 🖥 UI Elements
+
+This documentation explains all available UI elements including `Content` parameter.
+
+---
+
+## 🪟 Create Tab
 
 ```lua
-loadstring(game:HttpGet("https://neutraproject.vercel.app/LOADER"))()
+self.Tab = self.UI.Window:AddTab({
+    Name = "Tab Name",
+    Icon = "star" -- optional
+})
 ```
+
+---
+
+## 📦 Add Section
+
+```lua
+local Section = self.Tab:AddSection("Section Title", true)
+```
+
+Second parameter:
+- `true`  → collapsible
+- `false` → normal section
+
+---
+
+## 📜 Paragraph
+
+```lua
+Section:AddParagraph({
+    Title = "Information",
+    Content = "This is description text under the title."
+})
+```
+
+✔ `Title` = header text  
+✔ `Content` = description text  
+
+---
+
+## 🔘 Button
+
+```lua
+Section:AddButton({
+    Title = "Click Me",
+    Content = "Optional description under button",
+    Callback = function()
+        print("Clicked")
+    end
+})
+```
+
+✔ `Content` = small description text  
+
+---
+
+## 🔁 Toggle
+
+```lua
+Section:AddToggle({
+    Title = "Enable Feature",
+    Content = "Turn this on to activate feature",
+    Default = false,
+    Callback = function(state)
+        print("State:", state)
+    end
+})
+```
+
+✔ `Default` = true / false  
+✔ `Content` = description text  
+
+---
+
+## 📋 Dropdown (Single Select)
+
+```lua
+Section:AddDropdown({
+    Title = "Select Option",
+    Content = "Choose one option",
+    Options = {"A", "B", "C"},
+    Default = nil,
+    Callback = function(selected)
+        print(selected)
+    end
+})
+```
+
+---
+
+## 📋 Dropdown (Multi Select)
+
+```lua
+Section:AddDropdown({
+    Title = "Select Multiple",
+    Content = "You can select more than one",
+    Options = {"A", "B", "C"},
+    Multi = true,
+    Default = {},
+    Callback = function(selectedTable)
+        for _, v in ipairs(selectedTable) do
+            print(v)
+        end
+    end
+})
+```
+
+✔ `Multi = true` enables multi selection  
+
+---
+
+## ✏️ Input
+
+```lua
+Section:AddInput({
+    Title = "Enter Value",
+    Content = "Input something here",
+    Default = "",
+    Placeholder = "Type here...",
+    Callback = function(value)
+        print(value)
+    end
+})
+```
+
+✔ `Placeholder` = hint text  
+✔ `Default` = default value  
+
+---
+
+## 🔢 Slider
+
+```lua
+Section:AddSlider({
+    Title = "Speed",
+    Content = "Adjust the speed value",
+    Min = 0,
+    Max = 100,
+    Default = 50,
+    Callback = function(value)
+        print(value)
+    end
+})
+```
+
+---
+
+## 🔔 Notifications
+
+```lua
+self.NotifySuccess("Title", "Message", 2)
+self.NotifyError("Title", "Message", 2)
+self.NotifyInfo("Title", "Message", 2)
+```
+
+Last parameter = duration (seconds)
+
+---
+
+## 🧹 Proper Cleanup (IMPORTANT)
+
+```lua
+function MyPlugin:OnUnload()
+    if self.Tab then
+        self.Tab:Destroy()
+    end
+end
+```
+
+Always clean UI to avoid ghost tabs.
