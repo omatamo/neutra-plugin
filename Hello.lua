@@ -17,7 +17,7 @@ function Hello:SayHello()
 
   local HelloSection = HelloTab:AddSection("Hello World")
   
-  HelloTab:AddButton({
+  HelloSection:AddButton({
     Title = "Wave Me",
     Callback = function()
       self.NotifyInfo("Hi "..self.Name, "From Hello plugin", 2)
