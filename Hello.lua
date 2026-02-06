@@ -10,12 +10,12 @@ function Hello:Init(core)
 end
 
 function Hello:SayHello()
-  local HelloTab = self.UI.Window:AddTab({
+  self.Tab = self.UI.Window:AddTab({
     Name = "Hello",
     Icon = "user"
   })
 
-  local HelloSection = HelloTab:AddSection("Hello World")
+  local HelloSection = self.Tab:AddSection("Hello World")
   
   HelloSection:AddButton({
     Title = "Wave Me",
@@ -23,6 +23,12 @@ function Hello:SayHello()
       self.NotifyInfo("Hi "..self.Name, "From Hello plugin", 2)
     end
   })
+end
+
+function Hello:OnUnload()
+    if self.Tab then
+        self.Tab:Destroy()
+    end
 end
   
 return Hello
